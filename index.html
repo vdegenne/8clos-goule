@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,user-scalable=yes">
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Roboto');
+    </style>
+  </head>
+
+  <body>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0px;
+        padding: 0 20px;
+        box-sizing: border-box;
+
+        text-align: center;
+        font-family: Roboto;
+        background: #000;
+        color: #fff;
+      }
+
+      #input {
+        display: block;
+        padding: 12px;
+        box-sizing: border-box;
+        width: 100%;
+        margin: 20px 0 10px 0;
+        border-radius: 1px;
+        border: 1px solid #cecece;
+      }
+      #input[wrong] {
+        border: 1px solid #7d0000;
+        background: red;
+        color: #fff;
+      }
+
+      #input::placeholder {
+        color: rgba(0, 0, 0, .4);
+      }
+      #input[wrong]::placeholder {
+        color: #fff;
+      }
+
+      button {
+        cursor: pointer;
+        background: #3c3c3c;
+        color: #fff;
+        border: 0;
+        padding: 10px 16px;
+        text-transform: uppercase;
+      }
+    </style>
+    <div id="content"></div>
+
+    <script type="module">
+      import { render, html } from './node_modules/lit-html/lit-html.js';
+
+      const password = 'test';
+      const content = document.getElementById('content');
+
+      const verify = () => {
+        if (input.value !== password) {
+          input.placeholder = 'Mauvais mot de passe !';
+          input.value = '';
+          input.setAttribute('wrong', '');
+        }
+        else {
+          render(html`
+          <style>
+            #content > p {
+              max-width: 462px;
+              text-align: center;
+              font-family: cursive;
+            }
+            #content > p:nth-of-type(1) {
+              text-transform: uppercase;
+              margin-top: 20px;
+            }
+            p#bottom {
+              position: relative;
+              top: -30px;
+            }
+
+            #dragon {
+              position:relative;
+              z-index:2;
+              top: -7px;
+              animation: move 10s linear infinite;
+            }
+
+            @keyframes move {
+              50% {
+                -webkit-transform: rotate(20deg);
+              }
+            }
+          </style>
+          <p>Bravo ! vous êtes remontés à la dernière trace !</p>
+          <p>Aujourd'hui, la Grand'Goule n'est plus qu'un spectre qui hante la ville. Plus personne n'y croit.</p>
+          <p>Pourtant cette histoire nous montre à quel point la bête refait surface quand on ne l'attend plus.</p>
+          <p>Alors qui sait si elle ne reviendra pas tôt ou tard ?</p>
+          <img id="dragon" src="./images/ggpng.png" width="300px">
+          <p id="bottom" style="text-align:center">Rendez-vous sur HUIS-CLOS !<br> :)</p>
+          `, content);
+        }
+      }
+
+      render(html`
+      <style>
+        #content > div {
+          margin: 10px 0;
+        }
+
+        #content > div:nth-of-type(1) {
+          text-transform: uppercase;
+          color: orange;
+          font-size: 19px;
+          margin-top: 50px;
+          font-family: cursive;
+        }
+
+        #content > div:nth-of-type(2) {
+          color: red;
+          /* margin-bottom: 20px; */
+          font-size: 12px;
+        }
+      </style>
+      <div>Cadenas vert : 1234</div>
+      <div>à ouvrir une fois devant la fontaine</div>
+      <input type="text" id="input" placeholder="Entrer le mot de passe" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Entrer le mot de passe'" spellcheck="false" onclick="this.removeAttribute('wrong')">
+      <div style="text-align: right">
+        <button @click="${verify}">ouvrir</button>
+      </div>
+      `, content);
+
+      
+      const input = document.getElementById('input');
+
+    </script>
+  </body>
+</html>
